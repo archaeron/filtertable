@@ -1,4 +1,0 @@
-[submodule "visualsearch"]
-	path = thirdparty
-	url = git://github.com/documentcloud/visualsearch.git
-

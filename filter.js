@@ -2,6 +2,7 @@
 {
 	'use strict';
 	var filterable = {},
+		rownames = [],
 		$table,
 		$rows,
 		options = 
@@ -14,7 +15,7 @@
 		$table = $element; 
 		options = $.extend(options, opt);
 		
-		var init = function(options)
+		var init = function()
 		{
 			$rows = $table.children('tbody').find('tr');
 
@@ -30,6 +31,21 @@
 				
 			});
 		};
+		
+		this.rows = function()
+		{
+			if(! rownames.length)
+			{
+				var length = filterable.length;
+				for(name in filterable)
+				{
+					rownames.push(name);
+				}
+			}
+			
+			return rownames;
+		};
+		
 		
 		/**
 		*	searchoptions =
@@ -79,8 +95,6 @@
 					}
 				});
 				
-				
-				
 			});
 			
 			$rows.filter(':not(.filtertable-hideQueue)').toggleClass(options.hiddenClass, false);
@@ -90,7 +104,7 @@
 			
 		};
 		
-		init($element, options);
+		init();
 	};
 	
 	window.tableFilter = tableFilter;

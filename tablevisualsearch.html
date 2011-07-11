@@ -1,7 +1,16 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<meta charset="UTF-8">
+	<script src="thirdparty/jquery1.6.1.js"></script>
+	<script src="thirdparty/jqueryuicustom.min.js"></script>
+	<script src="thirdparty/underscore.js"></script>
+	<script src="thirdparty/backbone.js"></script>
+	<script src="thirdparty/visualsearch.js"></script>
+	
+	<link href="thirdparty/visualsearch-datauri.css" media="screen" rel="stylesheet" type="text/css" />
+	<script src="filter.js"></script>
+	
+	
 	<title></title>
 	<style>
 		.filtertable-hidden
@@ -11,10 +20,7 @@
 	</style>
 </head>
 <body>
-	<input id="searchinputname" />
-	<input id="searchinputbrand" />
-	<input id="searchinputdescription" />
-	<input type="button" id="search" value="Search" />
+	<div class="visual_search"></div>
 	
 	
 	<table width="100%" id="tablefilter">
@@ -48,10 +54,44 @@
 		</tbody>
 	</table>
 	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-	<script src="filter.js"></script>
+	
 	<script>
-		var filter = new window.tableFilter($('#tablefilter'));
+		$(document).ready(function()
+		{
+			var filter = new window.tableFilter($('#tablefilter'));
+			var facets = filter.rows();
+
+			VS.init(
+			{
+				container: $('.visual_search'),
+				query : '',
+				unquotable : [],
+				callbacks :
+				{
+					search : function(query)
+					{
+						var search = [];
+						$.each(VS.app.SearchParser.parse(query), function(key, value)
+						{
+							search.push(
+								{
+									'row': value.attributes.category,
+									'value': value.attributes.value
+								}
+							);
+						});
+						filter.search(search);
+					},
+					facetMatches : function()
+					{
+						return facets;
+					},
+					valueMatches : function(facet) { return []; }
+				}
+			});
+			
+		});
+		
 
 		$('#search').click(function()
 		{
