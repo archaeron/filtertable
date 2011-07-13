@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script src="thirdparty/jquery1.6.1.js"></script>
+	<script src="thirdparty/jqueryuicustom.min.js"></script>
+	<script src="thirdparty/underscore.js"></script>
+	<script src="thirdparty/backbone.js"></script>
+	<script src="thirdparty/visualsearch.js"></script>
+	
+	<link href="thirdparty/visualsearch-datauri.css" media="screen" rel="stylesheet" type="text/css" />
+	<script src="filter.js"></script>
+	
+	
+	<title></title>
+	<style>
+		.filtertable-hidden
+		{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="visual_search"></div>
+	
+	
+	<table width="100%" id="tablefilter">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Brand</th>
+				<th>Description</th>
+				<th data-tablefilter-nofilter="1">Picture</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td data-filterkey="aventador"><a href="http://en.wikipedia.org/wiki/Lamborghini_Aventador">Aventador</a></td>
+				<td>Lamborghini</td>
+				<td>The Lamborghini Aventador LP700-4 is a two-door, two-seater sports car publicly unveiled by Lamborghini at the Geneva Motor Show on February 28, 2011, five months after its initial unveiling in Sant'Agata Bolognese.[2] Internally codenamed LB834,[3] the Aventador was designed to replace the ten-year-old Murciélago as the new flagship model in the Lamborghini lineup starting in 2011.[4] Soon after the Aventador unveiling Lamborghini announced that it had already sold over 12 months of the production vehicles, with deliveries starting in the second half of 2011.[5]</td>
+				<td><img src="http://upload.wikimedia.org/wikipedia/commons/0/0d/2011LamborghiniAventador.jpg" width="200px"></td>
+			</tr>
+			<tr>
+				<td data-filterkey="TR"><a href="http://en.wikipedia.org/wiki/Testa_Rossa">TR</a></td>
+				<td>Ferrari</td>
+				<td>The Ferrari TR, or 250 Testa Rossa, is a race car model built by Ferrari in the 1950s and 60s. These cars dominated their arenas, with variations winning the 24 Hours of Le Mans in 1958, 1960, and 1961. They were closely related to the rest of the Ferrari 250 line, especially the legendary 250 GTO.</td>
+				<td><img src="http://upload.wikimedia.org/wikipedia/commons/6/64/RL_1958_Ferrari_250_Testa_Rossa_34.JPG" width="200px"></td>
+			</tr>
+			<tr>
+				<td data-filterkey="458 Italia"><a href="http://en.wikipedia.org/wiki/Ferrari_458_Italia">458 Italia</a></td>
+				<td>Ferrari</td>
+				<td>The Ferrari 458 Italia is a mid-engined sports car produced by the Italian sports car manufacturer Ferrari. The 458 Italia replaces the Ferrari F430.[2] The 458 Italia was officially unveiled at the 2009 Frankfurt Motor Show on 15 September 2009.[3]</td>
+				<td><img src="http://upload.wikimedia.org/wikipedia/commons/a/aa/Ferrari_458_Italia_--_05-18-2011.jpg" width="200px"></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	
+	<script>
+		$(document).ready(function()
+		{
+			var filter = new window.tableFilter($('#tablefilter'));
+			var facets = filter.rows();
+
+
+			VS.init(
+			{
+				container: $('.visual_search'),
+				query : '',
+				unquotable : [],
+				callbacks :
+				{
+					search : function(query)
+					{
+						var search = [];
+						$.each(VS.app.SearchParser.parse(query), function(key, value)
+						{
+							search.push(
+								{
+									'row': value.attributes.category,
+									'value': value.attributes.value
+								}
+							);
+						});
+						filter.search(search);
+					},
+					facetMatches : function()
+					{
+						return facets;
+					},
+					valueMatches : function(facet) { return []; }
+				}
+			});
+			
+		});
+		
+
+		$('#search').click(function()
+		{
+			var opt =
+			[
+				{
+					row: 'name',
+					value: $('#searchinputname').val()
+				},
+				{
+					row: 'brand',
+					value: $('#searchinputbrand').val()
+				},
+				{
+					row: 'description',
+					value: $('#searchinputdescription').val()
+				}
+			];
+			filter.search(opt);
+		});
+	</script>
+</body>
+</html>
