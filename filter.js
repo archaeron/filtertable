@@ -37,7 +37,7 @@
 			if(! rownames.length)
 			{
 				var length = filterable.length;
-				for(name in filterable)
+				for(var name in filterable)
 				{
 					rownames.push(name);
 				}
@@ -48,7 +48,7 @@
 		
 		
 		/**
-		*	searchoptions =
+		*	searchparameters =
 			[
 				{
 					row: 'title',
