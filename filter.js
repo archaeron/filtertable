@@ -26,7 +26,10 @@
 				var nosort = $elem.attr('data-tablefilter-nofilter');
 				if(!nosort)
 				{
-					filterable[$elem.text().toLowerCase()] = i;
+					var name_attr = $elem.attr('data-tablefilter-rowname');
+					var key = name_attr !== void 0 ? name_attr : $elem.text();
+					key = key.toLowerCase();
+					filterable[key] = i;
 				}
 				
 			});
