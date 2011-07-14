@@ -9,6 +9,7 @@
 		{
 			hiddenClass : 'filtertable-hidden'
 		};
+		
 	
 	var tableFilter = function($element, opt)
 	{
@@ -26,7 +27,10 @@
 				var nosort = $elem.attr('data-tablefilter-nofilter');
 				if(!nosort)
 				{
-					filterable[$elem.text().toLowerCase()] = i;
+					var name_attr = $elem.attr('data-tablefilter-rowname');
+					var key = name_attr !== void 0 ? name_attr : $elem.text();
+					key = key.toLowerCase();
+					filterable[key] = i;
 				}
 				
 			});
@@ -39,7 +43,10 @@
 				var length = filterable.length;
 				for(var name in filterable)
 				{
-					rownames.push(name);
+					if(filterable.hasOwnProperty(name))
+					{
+						rownames.push(name);
+					}
 				}
 			}
 			
