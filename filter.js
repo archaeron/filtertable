@@ -9,6 +9,7 @@
 		{
 			hiddenClass : 'filtertable-hidden'
 		};
+		
 	
 	var tableFilter = function($element, opt)
 	{
@@ -42,7 +43,10 @@
 				var length = filterable.length;
 				for(var name in filterable)
 				{
-					rownames.push(name);
+					if(filterable.hasOwnProperty(name))
+					{
+						rownames.push(name);
+					}
 				}
 			}
 			
