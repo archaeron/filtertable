@@ -17,7 +17,7 @@
 	
 	var tableFilter = function($element, opt)
 	{
-		this.VERSION = 0.1.1;
+		this.VERSION = '0.1.2';
 		
 		$table = $element; 
 		options = $.extend(options, opt);
