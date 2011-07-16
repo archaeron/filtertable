@@ -1,3 +1,7 @@
+/**
+* page: https://github.com/archaeron/filtertable
+* license: MIT (http://www.opensource.org/licenses/mit-license.php)
+*/
 (function(window, $)
 {
 	'use strict';
@@ -13,6 +17,8 @@
 	
 	var tableFilter = function($element, opt)
 	{
+		this.VERSION = 0.1.1;
+		
 		$table = $element; 
 		options = $.extend(options, opt);
 		
@@ -99,6 +105,7 @@
 					if(to_search.indexOf(elem) === -1)
 					{
 						$column.parent().toggleClass('filtertable-hideQueue', true);
+						return false;
 					}
 				});
 				
