@@ -20,7 +20,7 @@
 	</style>
 </head>
 <body>
-	<div class="visual_search"></div>
+	<div id="visual_search"></div>
 	
 	
 	<table width="100%" id="tablefilter">
@@ -54,7 +54,9 @@
 		</tbody>
 	</table>
 	
-	
+	<!--[if lte IE 8]>
+		<script src="thirdparty/augment-0.3.0.min.js"></script>
+	<![endif]-->
 	<script>
 		$(document).ready(function()
 		{
@@ -64,7 +66,7 @@
 
 			VS.init(
 			{
-				container: $('.visual_search'),
+				container: $('#visual_search'),
 				query : '',
 				unquotable : [],
 				callbacks :
@@ -83,9 +85,9 @@
 						});
 						filter.search(search);
 					},
-					facetMatches : function()
+					facetMatches : function(callback)
 					{
-						return facets;
+						callback(facets);
 					},
 					valueMatches : function(facet) { return []; }
 				}
