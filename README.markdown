@@ -1,24 +1,42 @@
+FilterTable
+===========
+
 Usage
-=====
+-----
 
 ```javascript
-var filter = new window.tableFilter($('#tablefilter'));
-var searchoptions =
-[
+var filter = new window.tableFilter($('#tablefilter')),
+	opt =
 	{
-		row: 'name',
-		value: $('#searchinputname').val()
-	},
-	{
-		row: 'brand',
-		value: $('#searchinputbrand').val()
-	},
-	{
-		row: 'description',
-		value: $('#searchinputdescription').val()
-	}
-
-];
+		op: 'or',
+		terms:
+		[
+			{
+				row: 'kw',
+				value: '515'
+			},
+			{
+				row: 'kw',
+				value: '588'
+			},
+			{
+				op: 'and',
+				terms:
+				[
+					{
+						row: 'brand',
+						value: 'ferrari'
+					},
+					{
+						row: 'name',
+						value: '599'
+					}
+				]
+			}
+		]
+	};
+	
+filter.search(opt);
 ```
 
 The rows to be hidden will get the class 'filtertable-hidden'.
@@ -28,3 +46,9 @@ You can change this class with an additional parameter.
 ```javascript
 var filter = new window.tableFilter($('#tablefilter'), {hiddenClass : 'hiddenClass'});
 ```
+
+Dependencies
+------------
+
+- [jquery](http://jquery.com/)
+- Array.prototype.indexOf (e.g [Augment.js](http://augmentjs.com/))

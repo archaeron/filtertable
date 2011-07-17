@@ -6,15 +6,31 @@
 	<style>
 		.filtertable-hidden
 		{
-			display: none;
+			/*display: none;*/
+			background-color: red;
+		}
+		.box
+		{
+			border: 1px solid #333;
 		}
 	</style>
 </head>
 <body>
-	<input id="searchinputname" placeholder="name" />
-	<input id="searchinputbrand" placeholder="brand" />
-	<input id="searchinputdescription" placeholder="description" />
-	<input type="button" id="search" value="Search" />
+	<div class="box">
+		<input id="orname" placeholder="name" /> or
+		<input id="orbrand" placeholder="brand" /> or
+		<input id="ordescription" placeholder="description" /> or
+		<input id="orkw" placeholder="kW" />
+		<input type="button" class="search" data-op="or" value="Search" />
+	</div>
+	
+	<div class="box">
+		<input id="andname" placeholder="name" /> and
+		<input id="andbrand" placeholder="brand" /> and
+		<input id="anddescription" placeholder="description" /> and
+		<input id="andkw" placeholder="kW" />
+		<input type="button" class="search" data-op="and" value="Search" />
+	</div>
 	
 	
 	<table width="100%" id="tablefilter">
@@ -23,6 +39,7 @@
 				<th>Name</th>
 				<th>Brand</th>
 				<th data-tablefilter-rowname="desc">Description</th>
+				<th>kW</th>
 				<th data-tablefilter-nofilter="1">Picture</th>
 			</tr>
 		</thead>
@@ -30,23 +47,65 @@
 			<tr>
 				<td data-filterkey="aventador"><a href="http://en.wikipedia.org/wiki/Lamborghini_Aventador">Aventador</a></td>
 				<td>Lamborghini</td>
-				<td>The Lamborghini Aventador LP700-4 is a two-door, two-seater sports car publicly unveiled by Lamborghini at the Geneva Motor Show on February 28, 2011, five months after its initial unveiling in Sant'Agata Bolognese.[2] Internally codenamed LB834,[3] the Aventador was designed to replace the ten-year-old Murciélago as the new flagship model in the Lamborghini lineup starting in 2011.[4] Soon after the Aventador unveiling Lamborghini announced that it had already sold over 12 months of the production vehicles, with deliveries starting in the second half of 2011.[5]</td>
+				<td>
+					The Lamborghini Aventador LP700-4 is a two-door, two-seater sports car publicly unveiled by Lamborghini at the Geneva Motor Show on February 28, 2011, five months after its initial unveiling in Sant'Agata Bolognese. Internally codenamed LB834, the Aventador was designed to replace the ten-year-old Murciélago as the new flagship model in the Lamborghini lineup starting in 2011.
+				</td>
+				<td>515</td>
 				<td><img src="http://upload.wikimedia.org/wikipedia/commons/0/0d/2011LamborghiniAventador.jpg" width="200px"></td>
 			</tr>
 			<tr>
 				<td data-filterkey="TR"><a href="http://en.wikipedia.org/wiki/Testa_Rossa">TR</a></td>
 				<td>Ferrari</td>
 				<td>The Ferrari TR, or 250 Testa Rossa, is a race car model built by Ferrari in the 1950s and 60s. These cars dominated their arenas, with variations winning the 24 Hours of Le Mans in 1958, 1960, and 1961. They were closely related to the rest of the Ferrari 250 line, especially the legendary 250 GTO.</td>
+				<td>221</td>
 				<td><img src="http://upload.wikimedia.org/wikipedia/commons/6/64/RL_1958_Ferrari_250_Testa_Rossa_34.JPG" width="200px"></td>
 			</tr>
 			<tr>
 				<td data-filterkey="458 Italia"><a href="http://en.wikipedia.org/wiki/Ferrari_458_Italia">458 Italia</a></td>
 				<td>Ferrari</td>
 				<td>The Ferrari 458 Italia is a mid-engined sports car produced by the Italian sports car manufacturer Ferrari. The 458 Italia replaces the Ferrari F430.[2] The 458 Italia was officially unveiled at the 2009 Frankfurt Motor Show on 15 September 2009.[3]</td>
+				<td>419</td>
 				<td><img src="http://upload.wikimedia.org/wikipedia/commons/a/aa/Ferrari_458_Italia_--_05-18-2011.jpg" width="200px"></td>
+			</tr>
+			<tr>
+				<td data-filterkey="MP4-12C"><a href="http://de.wikipedia.org/wiki/McLaren_MP4-12C">MP4-12C</a></td>
+				<td>McLaren</td>
+				<td>
+					The McLaren MP4-12C is a sports car designed and manufactured by McLaren Automotive. It is the first production car wholly designed and built by McLaren since the McLaren F1, which for a long time held the record for the fastest production car in the world. The car's final design was unveiled on 8 September 2009, and it is set to be launched in 2011.
+				</td>
+				<td>441</td>
+				<td><img src="http://upload.wikimedia.org/wikipedia/commons/9/96/Mclaren_mp4-12c_goodwood_festival_of_speed_2010.jpg" width="200px"></td>
+			</tr>
+			<tr>
+				<td data-filterkey="Apollo"><a href="http://de.wikipedia.org/wiki/Gumpert_Apollo">Apollo</a></td>
+				<td>Gumpert</td>
+				<td>
+					The Gumpert Apollo is a sports car produced by German automaker Gumpert Sportwagenmanufaktur GmbH in Altenburg.
+				</td>
+				<td>588</td>
+				<td><img src="http://upload.wikimedia.org/wikipedia/commons/c/c9/Gumpert_Apollo_Dubai.jpg" width="200px"></td>
+			</tr>
+			<tr>
+				<td data-filterkey="599"><a href="http://en.wikipedia.org/wiki/Ferrari_599_GTB_Fiorano">599</a></td>
+				<td>Ferrari</td>
+				<td>
+					The 599 GTB Fiorano (internal code F141) is an Italian gran turismo produced by Ferrari. It is the brand's two-seat flagship, replacing the 575 M Maranello in 2006 as a 2007 model.
+				</td>
+				<td>456</td>
+				<td><img src="http://upload.wikimedia.org/wikipedia/commons/4/44/Ferrari599_A6_1.JPG" width="200px"></td>
+			</tr>
+			<tr>
+				<td data-filterkey="Veyron"><a href="http://en.wikipedia.org/wiki/Bugatti_Veyron">Veyron</a></td>
+				<td>Bugatti</td>
+				<td>
+					The Bugatti Veyron EB 16.4 is a mid-engined grand touring car. It is the most expensive modern road car in the world at €1,000,000 (approx. US$1,500,000). The Super Sport version is the fastest road-legal car in the world, with a top speed of 431.07 km/h (267.85 mph). The original version has a top speed of 408.00 km/h (253.52 mph). It was named Car of the Decade (2000–2009) by the BBC television programme Top Gear.
+				</td>
+				<td>736</td>
+				<td><img src="http://upload.wikimedia.org/wikipedia/commons/4/41/Bugatti_Veyron_-_BCN_motorshow_2009.JPG" width="200px"></td>
 			</tr>
 		</tbody>
 	</table>
+	
 	<!--[if lte IE 8]>
 		<script src="thirdparty/augment-0.3.0.min.js"></script>
 	<![endif]-->
@@ -55,23 +114,41 @@
 	<script>
 		var filter = new window.tableFilter($('#tablefilter'));
 		console.log(filter.rows());
-		$('#search').click(function()
+		var inputnames = 
+		[
+			'name',
+			'brand',
+			'description',
+			'kw'
+		];
+
+		
+		
+		$('.search').click(function()
 		{
+			var op = $(this).attr('data-op');
+			console.log(op);
+			
 			var opt =
-			[
+			{
+				'op': op,
+				'terms': []
+			};
+			for(var i = 0; i < inputnames.length; i++)
+			{
+				var value = $('#'+op+inputnames[i]).val();
+				console.log(value);
+				if(value !== '')
 				{
-					row: 'name',
-					value: $('#searchinputname').val()
-				},
-				{
-					row: 'brand',
-					value: $('#searchinputbrand').val()
-				},
-				{
-					row: 'desc',
-					value: $('#searchinputdescription').val()
+					opt.terms.push(
+						{
+							'row': inputnames[i],
+							'value': value
+						}
+					);
 				}
-			];
+			}
+			console.log(opt);
 			filter.search(opt);
 		});
 	</script>
