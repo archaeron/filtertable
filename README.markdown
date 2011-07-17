@@ -50,5 +50,5 @@ var filter = new window.tableFilter($('#tablefilter'), {hiddenClass : 'hiddenCla
 Dependencies
 ------------
 
-- (jquery)[http://jquery.com/]
-- Array.indexOf ( (Augment.js)[http://augmentjs.com/] )
+- [jquery](http://jquery.com/)
+- Array.prototype.indexOf (e.g [Augment.js](http://augmentjs.com/))
