@@ -15,7 +15,12 @@
 	<input id="vollendet" placeholder="vollendet" />
 	<input id="versucht" placeholder="versucht" />
 	<input id="total" placeholder="total" />
+	<select id="op">
+		<option>and</option>
+		<option>or</option>
+	</select>
 	<input type="button" id="search" value="Search" />
+	
 
 	<table id="tablefilter">
 		<thead>
@@ -56949,27 +56954,37 @@
 	<script>
 		var filter = new window.tableFilter($('#tablefilter'));
 		console.log(filter.rows());
+		var inputnames = 
+		[
+			'straftaten',
+			'vollendet',
+			'versucht',
+			'total'
+		];
+
 		$('#search').click(function()
 		{
+			var op = $('#op').val();
 			var opt =
-			[
+			{
+				'op': op,
+				'terms': []
+			};
+			for(var i = 0; i < inputnames.length; i++)
+			{
+				var value = $('#'+inputnames[i]).val();
+
+				if(value !== '')
 				{
-					row: 'straftaten',
-					value: $('#straftaten').val()
-				},
-				{
-					row: 'vollendet',
-					value: $('#vollendet').val()
-				},
-				{
-					row: 'versucht',
-					value: $('#versucht').val()
-				},
-				{
-					row: 'total',
-					value: $('#total').val()
+					opt.terms.push(
+						{
+							'row': inputnames[i],
+							'value': value
+						}
+					);
 				}
-			];
+			}
+			console.log(opt);
 			filter.search(opt);
 		});
 	</script>
