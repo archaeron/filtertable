@@ -70,7 +70,11 @@
 		
 		this.search = function(searchparams)
 		{			
-
+			if(!searchparams.terms.length)
+			{
+				return;
+			}
+				
 			$rows.each(function ()
 			{
 				var $this = $(this),
