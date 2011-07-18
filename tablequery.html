@@ -8,19 +8,22 @@
 		{
 			display: none;
 		}
+		#query
+		{
+			width: 50%;
+		}
 	</style>
 </head>
 <body>
-	<input id="query" />
+	<input id="query" value="kw: 515 OR kw: 588 OR (brand:ferrari AND name:599)" />
 	<input type="button" id="search" value="Search" />
-	
 	
 	<table width="100%" id="tablefilter">
 		<thead>
 			<tr>
 				<th>Name</th>
 				<th>Brand</th>
-				<th data-tablefilter-rowname="desc">Description</th>
+				<th>Description</th>
 				<th>kW</th>
 				<th data-tablefilter-nofilter="1">Picture</th>
 			</tr>
@@ -91,44 +94,19 @@
 		<script src="thirdparty/augment-0.3.0.min.js"></script>
 	<![endif]-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<script src="queryparser.js"></script>
 	<script src="filter.js"></script>
 	<script>
 		var filter = new window.tableFilter($('#tablefilter'));
 		console.log(filter.rows());
 		console.log(filter.VERSION);
+		 
+		
 		$('#search').click(function()
 		{
 			var query = $('#query').val();
-			console.log(query);
-			var opt =
-			{
-				op: 'or',
-				terms:
-				[
-					{
-						row: 'kw',
-						value: '515'
-					},
-					{
-						row: 'kw',
-						value: '588'
-					},
-					{
-						op: 'and',
-						terms:
-						[
-							{
-								row: 'brand',
-								value: 'ferrari'
-							},
-							{
-								row: 'name',
-								value: '599'
-							}
-						]
-					}
-				]
-			};
+
+			var opt = window.queryparser(query);
 			filter.search(opt);
 		});
 	</script>
