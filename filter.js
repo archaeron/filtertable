@@ -70,21 +70,21 @@
 		
 		this.search = function(searchparams)
 		{			
-			if(!searchparams.terms.length)
+			if(searchparams.terms.length)
 			{
-				return;
-			}
 				
-			$rows.each(function ()
-			{
-				var $this = $(this),
-					passed = choose_op(searchparams, $this);
-					
-				if(!passed)
+				$rows.each(function ()
 				{
-					$this.toggleClass('filtertable-hideQueue', true);
-				}
-			});
+					var $this = $(this),
+						passed = choose_op(searchparams, $this);
+						
+					if(!passed)
+					{
+						$this.toggleClass('filtertable-hideQueue', true);
+					}
+				});
+			
+			}
 			
 			$rows.filter(':not(.filtertable-hideQueue)').toggleClass(options.hiddenClass, false);
 			$rows.filter('.filtertable-hideQueue')
