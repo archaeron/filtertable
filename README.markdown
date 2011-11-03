@@ -39,7 +39,7 @@ var filter = new window.tableFilter($('#tablefilter')),
 filter.search(opt);
 ```
 
-The rows to be hidden will get the class 'filtertable-hidden'.
+The rows to be hidden will get the class 'hidden'.
 
 You can change this class with an additional parameter.
 
@@ -50,5 +50,5 @@ var filter = new window.tableFilter($('#tablefilter'), {hiddenClass : 'hiddenCla
 Dependencies
 ------------
 
-- [jquery](http://jquery.com/)
-- Array.prototype.indexOf (e.g [Augment.js](http://augmentjs.com/))
+- [jQuery](http://jquery.com/)
+- Array.prototype.indexOf (e.g. [Augment.js](http://augmentjs.com/))

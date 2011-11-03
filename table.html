@@ -4,10 +4,10 @@
 	<meta charset="UTF-8">
 	<title></title>
 	<style>
-		.filtertable-hidden
+		.hidden
 		{
 			/*display: none;*/
-			background-color: red;
+			opacity: 0.2;
 		}
 		.box
 		{
@@ -30,6 +30,11 @@
 		<input id="anddesc" placeholder="description" /> and
 		<input id="andkw" placeholder="kW" />
 		<input type="button" class="search" data-op="and" value="Search" />
+	</div>
+	
+	<div class="box">
+		<input id="searchAllInput" id="all" placeholder="search in all fields" />
+		<input type="button" class="searchAll" data-op="and" value="Search" />
 	</div>
 	
 	
@@ -110,22 +115,15 @@
 		<script src="thirdparty/augment-0.3.0.min.js"></script>
 	<![endif]-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-	<script src="filter.js"></script>
+	<script src="tableFilter.js"></script>
 	<script>
 		var filter = new window.tableFilter($('#tablefilter'));
-		console.log(filter.rows());
-		var inputnames = 
-		[
-			'name',
-			'brand',
-			'desc',
-			'kw'
-		];
+
+		var inputnames = filter.rows
 		
 		$('.search').click(function()
 		{
 			var op = $(this).attr('data-op');
-			console.log(op);
 			
 			var opt =
 			{
@@ -135,7 +133,6 @@
 			for(var i = 0; i < inputnames.length; i++)
 			{
 				var value = $('#'+op+inputnames[i]).val();
-				console.log(value);
 				if(value !== '')
 				{
 					opt.terms.push(
@@ -146,7 +143,25 @@
 					);
 				}
 			}
-			console.log(opt);
+			filter.search(opt);
+		});
+		
+		$('.searchAll').click(function()
+		{
+			var val = $('#searchAllInput').val();
+			
+			var opt =
+				{
+					op: 'and',
+					terms:
+						[
+							{
+								all_rows: true,
+								value: val
+							}
+						]
+				};
+				
 			filter.search(opt);
 		});
 	</script>

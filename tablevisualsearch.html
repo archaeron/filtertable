@@ -8,12 +8,12 @@
 	<script src="thirdparty/visualsearch.js"></script>
 	
 	<link href="thirdparty/visualsearch-datauri.css" media="screen" rel="stylesheet" type="text/css" />
-	<script src="filter.js"></script>
+	<script src="tableFilter.js"></script>
 	
 	
 	<title></title>
 	<style>
-		.filtertable-hidden
+		.hidden
 		{
 			display: none;
 		}
@@ -27,7 +27,7 @@
 		<thead>
 			<tr>
 				<th>Name</th>
-				<th>Brand</th>
+				<th data-tablefilter-rowname="brand">Brand</th>
 				<th>Description</th>
 				<th data-tablefilter-nofilter="1">Picture</th>
 			</tr>
@@ -61,27 +61,46 @@
 		$(document).ready(function()
 		{
 			var filter = new window.tableFilter($('#tablefilter'));
-			var facets = filter.rows();
+			var facets = filter.rows;
+			var version = window.tableFilter.version;
+			console.log('facets', filter, filter.rows);
 
 
 			VS.init(
 			{
 				container: $('#visual_search'),
-				query : '',
+				query : 'av',//'name: A brand: l',
 				unquotable : [],
 				callbacks :
 				{
 					search : function(query)
 					{
-						var search = [];
+						var search =
+							{
+								op: 'and',
+								terms: []
+							};
 						$.each(VS.app.SearchParser.parse(query), function(key, value)
 						{
-							search.push(
-								{
-									'row': value.attributes.category,
-									'value': value.attributes.value
-								}
-							);
+							if(value.attributes.category === 'text')
+							{
+								search.terms.push(
+									{
+										all_rows: true,
+										'value': value.attributes.value
+									}
+								);
+							}
+							else
+							{
+								search.terms.push(
+									{
+										'row': value.attributes.category,
+										'value': value.attributes.value
+									}
+								
+								);
+							}
 						});
 						filter.search(search);
 					},
